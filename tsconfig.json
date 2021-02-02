@@ -1,0 +1,28 @@
+{
+  "__doc": "https://www.typescriptlang.org/tsconfig#module",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "lib": ["es2015", "es2016", "es2017", "dom"],
+    "outDir": "dist",
+    "jsx": "preserve",
+    "rootDir": ".",
+    "importHelpers": true,
+    "declaration": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "typeRoots": [
+      "./typings"
+    ],
+    "noUnusedLocals": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true
+  },
+  "exclude": ["node_modules"]
+}
