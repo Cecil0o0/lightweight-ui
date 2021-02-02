@@ -1,0 +1,37 @@
+{
+  "name": "awesome-components",
+  "version": "1.0.0",
+  "description": "Some awesome components written in typescript.",
+  "main": "rollup.config.js",
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "build": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cecil0o0/awesome-components.git"
+  },
+  "keywords": [
+    "react",
+    "performance"
+  ],
+  "author": "Cecil",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cecil0o0/awesome-components/issues"
+  },
+  "homepage": "https://github.com/Cecil0o0/awesome-components#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@storybook/addon-actions": "^6.1.16",
+    "@storybook/addon-essentials": "^6.1.16",
+    "@storybook/addon-links": "^6.1.16",
+    "@storybook/react": "^6.1.16",
+    "babel-loader": "^8.2.2"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
