@@ -69,8 +69,8 @@ export const ExtraOptsApp = styled.div<{ preserveScrollWidth: boolean }>`
         transition: opacity 0.2s ease-in-out 0.2s;
         pointer-events: none;
       }
-      > i {
-        transform: rotate(-90deg);
+      svg {
+        transform: rotate(180deg);
         transition: none;
       }
     }
@@ -91,9 +91,9 @@ export const ExtraOptsApp = styled.div<{ preserveScrollWidth: boolean }>`
           opacity: 1;
         }
         pointer-events: all;
-        > i {
-          transform: rotate(90deg);
-        }
+      }
+      svg {
+        transform: rotate(0deg);
       }
     }
   }

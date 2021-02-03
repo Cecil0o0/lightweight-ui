@@ -16,17 +16,17 @@ export const body = {
 export const overscanCount = (inWindows() && isChrome()) || isFirefox() ? 10 : 1;
 
 export const rowSelection = {
-  columnWidth: 28,
+  columnWidth: 50,
   defaultKey: 'id'
 };
 
 export const placeholderCharacter = '-';
 export const stickyZIndex = {
-  bodyCell: 5,
+  bodyCell: 10,
   header: 30,
-  opts: 8
+  opts: 18
 };
-export const shadowZIndex = 10;
+export const shadowZIndex = 50;
 
 export const edgeClasses = {
   leftOverlay: 'fit-left-edge',
@@ -38,7 +38,9 @@ export const pagination = {
   paddingTop: 10,
   sizeHeight: {
     small: 28,
-    default: 28
+    default: 54,
+    medium: 54,
+    large: 68
   }
 };
 

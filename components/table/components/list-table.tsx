@@ -43,13 +43,15 @@ import { useTreeTableModel } from '../hooks/tree-table-model';
 
 const ghostStyle = { margin: 0 };
 
-// TODO migrate to shadow hooks
 const Wrapper = styled.div<{
   layoutVertical: LayoutVerticalType;
 }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  div {
+    box-sizing: border-box;
+  }
   [role='head-row'] {
     border-bottom: ${bodyDefaultConfig.borderSize}px solid ${Neutral300};
   }
@@ -348,7 +350,7 @@ export default function Table<T extends { id: string }>({
         width: containerWidth,
         height: containerHeight
       }}
-      onScroll={createHandleScroll({
+      onScrollCapture={createHandleScroll({
         scrollContainerRef,
         totalActualWidth,
         elementForClassRef: tableWrapperRef

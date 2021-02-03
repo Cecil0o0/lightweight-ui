@@ -1,12 +1,12 @@
 import { ReactNode, ReactElement, MutableRefObject, CSSProperties, MouseEventHandler } from 'react';
 import { ListChildComponentProps, GridChildComponentProps, VariableSizeList } from 'react-window';
-import { TablePaginationProps } from '@material-ui/core';
 import {
   DragStart as DndDragStart,
   DragUpdate as DndDragUpdate,
   DropResult as DndDropResult
 } from 'react-beautiful-dnd';
 import { HierarchyNode } from 'd3-hierarchy';
+import { TablePaginationProps } from '@material-ui/core';
 
 export interface Column<T> {
   key?: string;
@@ -59,7 +59,7 @@ export interface IAdminVirtualTable<T> {
     selectedRowKeys: string[];
     onChange: RowSelectionOnchange;
   };
-  pagination?: any | null | false;
+  pagination?: TablePaginationProps | null | false;
   activeIndex?: number;
   className?: string;
   emptyPlaceholder?: ReactNode;

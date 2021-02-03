@@ -7,7 +7,7 @@ import { rowSelection as defaultRowSelectionConfig } from '../shared/default-con
 export function useRowSelection({
   pagination,
   dataSource,
-  rowSelection
+  rowSelection,
 }: IUseRowSelection): {
   headerCheckbox: ReactElement;
   BodyCheckbox: ({ index }: { index: number }) => ReactElement;
@@ -28,7 +28,7 @@ export function useRowSelection({
   if (!rowSelection) {
     return {
       headerCheckbox: <></>,
-      BodyCheckbox: () => <></>
+      BodyCheckbox: () => <></>,
     };
   }
 
@@ -36,21 +36,22 @@ export function useRowSelection({
   // 是否全选
   const isSelectedAll =
     selectedRowKeys?.length > 0 &&
-    dataSource.every(data => selectedRowKeys.find(key => key === data.id));
+    dataSource.every((data) => selectedRowKeys.find((key) => key === data.id));
   // 是否有半选样式
   const indeterminate =
-    !isSelectedAll && dataSource.some(data => selectedRowKeys.find(key => key === data.id));
+    !isSelectedAll && dataSource.some((data) => selectedRowKeys.find((key) => key === data.id));
 
   return {
     headerCheckbox: (
       <Checkbox
+        size="small"
         indeterminate={indeterminate}
         checked={isSelectedAll}
         onChange={() => {
           if (typeof onChange !== 'function') return;
           if (!isSelectedAll) {
             onChange(
-              dataSource.map(item => item[defaultRowSelectionConfig.defaultKey as 'id']),
+              dataSource.map((item) => item[defaultRowSelectionConfig.defaultKey as 'id']),
               dataSource
             );
           } else {
@@ -65,13 +66,14 @@ export function useRowSelection({
       return (
         <Checkbox
           checked={checked}
+          size="small"
           onChange={() => {
             if (typeof onChange !== 'function') return;
             let rowKeys;
             if (checked) {
               const copied = selectedRowKeys.slice();
               copied.splice(
-                selectedRowKeys.findIndex(item => item === rowKey),
+                selectedRowKeys.findIndex((item) => item === rowKey),
                 1
               );
               rowKeys = copied;
@@ -80,9 +82,9 @@ export function useRowSelection({
             }
             const rows = [];
             const map = new Map(
-              cachedRows.current.map(value => [
+              cachedRows.current.map((value) => [
                 value[defaultRowSelectionConfig.defaultKey as 'id'],
-                value
+                value,
               ])
             );
             for (let i = 0; i < rowKeys.length; i++) {
@@ -92,6 +94,6 @@ export function useRowSelection({
           }}
         />
       );
-    }
+    },
   };
 }

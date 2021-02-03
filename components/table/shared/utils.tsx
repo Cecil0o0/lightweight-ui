@@ -17,7 +17,7 @@ export function genStickyStyle({
   }
   const base = {
     position: 'sticky',
-    zIndex: stickyZIndex.bodyCell
+    zIndex: stickyZIndex.bodyCell - (columnIndex + 1)
   };
   if ([true, 'left'].includes(column.fixed)) {
     let left = columnWidths.slice(0, columnIndex).reduce((acc, width) => acc + width, 0);

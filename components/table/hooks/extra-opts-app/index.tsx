@@ -3,10 +3,9 @@ import { cloneElement, useRef, useEffect, MutableRefObject, ReactNode, useMemo }
 import { IUseExtraOpts, InfoForOptClick, ISetHoverRow } from '../../types';
 import { body as bodyDefaultConfig } from '../../shared/default-config';
 import ReactDOM from 'react-dom';
-import { Blue500 } from '@/components/colors';
 import { IconButton } from '@material-ui/core';
-import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons';
 import cn from 'classnames';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const display = 'block';
 const hoverClass = 'hover';
@@ -176,8 +175,8 @@ export function useExtraOptsApp<T>({
         ReactDOM.render(
           <>
             <span className="icon-wrapper">
-              <IconButton onClick={() => toggleOpts({ appRef })} style={{ color: Blue500 }}>
-                <ArrowForwardIosIcon />
+              <IconButton size="small" onClick={() => toggleOpts({ appRef })} color="secondary">
+                <ChevronLeftIcon />
               </IconButton>
             </span>
             {content}

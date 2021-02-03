@@ -1,15 +1,7 @@
 import { IAdminVirtualTable, listRefType, TreeTableModel } from '../types';
 import { useEffect, useRef } from 'react';
-// eslint-disable-next-line no-restricted-imports
 import { TablePagination } from '@material-ui/core';
 import styled from 'styled-components';
-import {
-  Neutral900,
-  Neutral300,
-  Blue500,
-  Blue100,
-  Neutral600
-} from '@/components/colors';
 import { pagination as paginationDefaultConfig } from '../shared/default-config';
 
 const defaultSizerHeihgt = paginationDefaultConfig.sizeHeight.default;

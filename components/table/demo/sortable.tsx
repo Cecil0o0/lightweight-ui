@@ -194,7 +194,7 @@ const createCommonHandler = (func: any) => {
 export const Sortable = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
   const [columns, setColumns] = useState<any[]>(defaultColumns);
-  const [current, setCurrent] = useState(1);
+  const [page, setPage] = useState(1);
   const [dataSource, setDataSource] = useState(sortablaDataSourcePagesRef.current[0]);
   const clearSelectedHandleRef = useRef<() => void | undefined>();
 
@@ -258,15 +258,14 @@ export const Sortable = () => {
             },
           }}
           pagination={{
-            current,
-            total: initialTotal,
-            pageSize: initialPageSize,
-            hideOnSinglePage: true,
-            onChange: (page: number) => {
-              setCurrent(page);
-              setDataSource(sortablaDataSourcePagesRef.current[page - 1]);
-            },
-            showSizeChanger: false,
+            page,
+            count: initialTotal,
+            rowsPerPage: initialPageSize,
+            rowsPerPageOptions: [200],
+            onChangePage(e, page) {
+              setPage(page);
+              setDataSource(sortablaDataSourcePagesRef.current[page]);
+            }
           }}
           opts={[
             <Button key="reassign">操作离职</Button>,
