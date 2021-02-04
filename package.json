@@ -21,6 +21,7 @@
   "bugs": {
     "url": "https://github.com/Cecil0o0/awesome-components/issues"
   },
+  "previewUrl": "https://awesome-components.vercel.app/",
   "homepage": "https://github.com/Cecil0o0/awesome-components#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
