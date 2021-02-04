@@ -1,4 +1,4 @@
-import { IAdminVirtualTable, listRefType, TreeTableModel } from '../types';
+import { ITable, listRefType, TreeTableModel } from '../types';
 import { useEffect, useRef } from 'react';
 import { TablePagination } from '@material-ui/core';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import { pagination as paginationDefaultConfig } from '../shared/default-config'
 
 const defaultSizerHeihgt = paginationDefaultConfig.sizeHeight.default;
 
-function getPaginationHeight(pagination: IAdminVirtualTable<any>['pagination']) {
+function getPaginationHeight(pagination: ITable<any>['pagination']) {
   if (pagination && pagination.size) {
     const height = paginationDefaultConfig.sizeHeight[pagination.size as 'small' | 'default'];
     return height || defaultSizerHeihgt;
@@ -30,7 +30,7 @@ export function usePagination<T>({
   containerWidth,
   treeTableModel,
   listRef
-}: Pick<IAdminVirtualTable<T>, 'pagination' | 'renderPagination'> & {
+}: Pick<ITable<T>, 'pagination' | 'renderPagination'> & {
   containerWidth: number;
   treeTableModel: TreeTableModel<T>;
   listRef: listRefType;

@@ -1,4 +1,4 @@
-import { IAdminVirtualTable, IMeasurer } from '../../types';
+import { ITable, IMeasurer } from '../../types';
 import { measureTextWidth } from '../../utils';
 import { getColumnRender } from '../../shared';
 import {
@@ -14,7 +14,7 @@ export function measureHeights<T>({
   columnWidths,
   fixedRowHeight,
   measurer
-}: Pick<IAdminVirtualTable<T>, 'columns' | 'dataSource'> & {
+}: Pick<ITable<T>, 'columns' | 'dataSource'> & {
   columnWidths: number[];
   fixedRowHeight?: number;
   measurer?: IMeasurer;

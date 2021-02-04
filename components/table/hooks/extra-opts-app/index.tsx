@@ -175,7 +175,7 @@ export function useExtraOptsApp<T>({
         ReactDOM.render(
           <>
             <span className="icon-wrapper">
-              <IconButton size="small" onClick={() => toggleOpts({ appRef })} color="secondary">
+              <IconButton size="small" onClick={() => toggleOpts({ appRef })} color="primary">
                 <ChevronLeftIcon />
               </IconButton>
             </span>

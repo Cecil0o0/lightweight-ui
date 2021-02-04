@@ -350,7 +350,7 @@ export default function Table<T extends { id: string }>({
         width: containerWidth,
         height: containerHeight
       }}
-      onScrollCapture={createHandleScroll({
+      onScroll={createHandleScroll({
         scrollContainerRef,
         totalActualWidth,
         elementForClassRef: tableWrapperRef

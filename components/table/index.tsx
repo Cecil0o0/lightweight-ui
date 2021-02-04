@@ -1,8 +1,8 @@
 import ListTable from './components/list-table';
 import LazyAutoSizer from './components/lazy-auto-sizer';
-import { IAdminVirtualTable } from './types';
+import { ITableInner } from './types';
 
-function AdminVirtualTable<T extends { id: string }>(props: IAdminVirtualTable<T>) {
+function Table<T extends { id: string }>(props: ITableInner<T>) {
   return (
     <LazyAutoSizer debounceTrigger>
       {({ width, height }) => {
@@ -12,6 +12,6 @@ function AdminVirtualTable<T extends { id: string }>(props: IAdminVirtualTable<T
   );
 }
 
-export { AdminVirtualTable };
+export { Table };
 export * from './types';
 export { useExtraOptsApp } from './hooks/extra-opts-app';

@@ -1,4 +1,4 @@
-import { Column, IAdminVirtualTable, ITable } from '../types';
+import { Column, ITable } from '../types';
 import { rowSelection as defaultRowSelectionConfig, stickyZIndex } from './default-config';
 
 export function genStickyStyle({
@@ -10,7 +10,7 @@ export function genStickyStyle({
   column: Column<any>;
   columnIndex: number;
   columnWidths: number[];
-  rowSelection: IAdminVirtualTable<any>['rowSelection'];
+  rowSelection: ITable<any>['rowSelection'];
 }) {
   if (!column.fixed) {
     return {};

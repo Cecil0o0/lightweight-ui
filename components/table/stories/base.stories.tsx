@@ -1,28 +1,26 @@
 /* eslint-disable no-console */
-import { AdminVirtualTable } from '..';
-import { Input, Button, Tooltip } from '@material-ui/core';
-import { AccessTime as AccessTimeIcon } from '@material-ui/icons';
-import { Blue50, Blue500 } from '../../colors';
+import { Meta } from '@storybook/react/types-6-0';
+import { Table } from '..';
+import { Input, Button, Tooltip, ButtonGroup } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { debounce, isNil, isUndefined } from 'lodash';
 import { nanoid } from 'nanoid';
-import React, { ChangeEvent, ReactNode, useRef, useState } from 'react';
-import { DropResult } from 'react-beautiful-dnd';
+import React, { ChangeEvent, ReactNode, useState } from 'react';
 import styled from 'styled-components';
-import { arrayMove } from '../utils';
+import mdx from '../table.mdx';
 
 const Controller = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   > * {
     margin-right: 10px;
   }
 `;
 
 const OverwriteStyle = styled.div`
-  .company-table .sortable-row {
-    [role='cell'] {
-      background-color: ${Blue50};
-    }
+  .sortable-column-btn-wrapper {
+    margin-left: 10px;
   }
 `;
 
@@ -30,6 +28,10 @@ interface Info {
   indexA: string;
   indexB: string;
   indexC: string;
+}
+
+interface AsyncNodeData {
+  hasChild?: boolean;
 }
 
 interface Column<T> {
@@ -57,6 +59,77 @@ interface Column<T> {
   className?: string;
 }
 
+interface ITableData extends AsyncNodeData {
+  id: string;
+  indexA?: string;
+  indexB?: string;
+  indexC?: string;
+  indexD?: string;
+  indexE?: string;
+}
+const initialTotal = 10600;
+const initialPageSize = 200;
+
+function genDataSource({
+  total = initialTotal,
+  pageSize = initialPageSize,
+  extraContent = ''
+}: any = {}) {
+  const data: any[] = [];
+
+  for (let i = 1; i <= total / pageSize; i++) {
+    data.push(
+      Array.from({ length: pageSize }).map((_, j) => ({
+        id: nanoid(),
+        indexA: `page-${i}-row-${j}-element`,
+        indexB: `page-${i}-row-${j}-title`,
+        indexC: `page-${i}-row-${j}-button${extraContent}`,
+        indexD: `page-${i}-row-${j}-title`,
+        indexE: `opts`,
+        indexG: `page-${i}-row-${j}-titlepage-${i}-row-${j}`,
+        parentID: 'root'
+      }))
+    );
+  }
+  return data;
+}
+
+const dataSourcePagesRef = {
+  current: genDataSource({
+    extraContent: '12'
+  })
+};
+
+// const defaultSelectorColumns = [
+//   {
+//     name: 'indexA',
+//     disabled: true,
+//   },
+//   {
+//     name: 'indexB',
+//   },
+//   {
+//     name: 'indexC',
+//   },
+//   {
+//     name: 'indexD',
+//   },
+//   {
+//     name: 'indexE',
+//   },
+//   {
+//     name: 'indexF',
+//   },
+//   {
+//     name: 'indexG',
+//   },
+// ].map(({ name, disabled }, i) => ({
+//   key: name,
+//   name: () => name,
+//   checked: true,
+//   disabled,
+// }));
+
 const defaultColumns: Column<Info>[] = [
   {
     title: () => 'Column A',
@@ -64,19 +137,19 @@ const defaultColumns: Column<Info>[] = [
     minWidth: 200,
     fixed: true,
     render(text) {
-      return <div title={text}>{text}</div>;
-    },
+      return <div>{text}</div>;
+    }
   },
   {
     title: () => 'Column B',
     dataIndex: 'indexB',
     width: 200,
-    fixed: 'left',
+    fixed: 'left'
   },
   {
     title: () => 'Column D',
     dataIndex: 'indexD',
-    minWidth: 600,
+    minWidth: 600
   },
   {
     title: () => 'Column C',
@@ -87,11 +160,11 @@ const defaultColumns: Column<Info>[] = [
       factors: {
         lineHeight: 20,
         fontSize: 14,
-        fontWeight: 400,
+        fontWeight: 400
       },
       getTextContent(text) {
         return text;
-      },
+      }
     },
     render(text, _, index) {
       return (
@@ -103,74 +176,35 @@ const defaultColumns: Column<Info>[] = [
               alignItems: 'center',
               lineHeight: '20px',
               fontSize: 14,
-              fontWeight: 400,
+              fontWeight: 400
             }}
           >
             {text}
           </div>
         </Tooltip>
       );
-    },
+    }
   },
   {
     title: () => 'Column E',
     dataIndex: 'indexE',
-    minWidth: 200,
+    minWidth: 200
   },
   {
     title: () => 'Column F',
     dataIndex: 'indexF',
-    minWidth: 100,
+    minWidth: 100
   },
   {
     title: () => 'Column G',
     dataIndex: 'indexG',
-    width: 400,
-  },
-];
-
-const initialTotal = 600;
-const initialPageSize = 200;
-
-function genSortableDataSource({
-  total = initialTotal,
-  pageSize = initialPageSize,
-  extraContent = '',
-}: any = {}) {
-  const data: any[] = [];
-
-  for (let i = 1; i <= total / pageSize; i++) {
-    data.push(
-      Array.from({ length: pageSize }).map((_, j) => {
-        if (j === 0 || j === 1 || j === 2 || j === 3) {
-          return {
-            id: nanoid(),
-            indexA: `page-${i}-row-${j}-element`,
-            indexB: `page-${i}-row-${j}-title`,
-            indexC: `page-${i}-row-${j}-button${extraContent}`,
-            indexD: `page-${i}-row-${j}-titlepage-${i}-row-${j}`,
-            indexE: `opts`,
-            draggable: true,
-          };
-        }
-        return {
-          id: nanoid(),
-          indexA: `page-${i}-row-${j}-element`,
-          indexB: `page-${i}-row-${j}-title`,
-          indexC: `page-${i}-row-${j}-button${extraContent}`,
-          indexD: `page-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}-row-${j}-titlepage-${i}`,
-          indexE: `opts`,
-          draggable: false,
-        };
-      })
-    );
+    width: 300,
+    fixed: 'right',
+    render() {
+      return 'options';
+    }
   }
-  return data;
-}
-
-const sortablaDataSourcePagesRef = {
-  current: genSortableDataSource(),
-};
+];
 
 const createCommonHandler = (func: any) => {
   const debounced = debounce((value) => {
@@ -191,58 +225,53 @@ const createCommonHandler = (func: any) => {
   };
 };
 
-export const Sortable = () => {
+export const Base = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
   const [columns, setColumns] = useState<any[]>(defaultColumns);
-  const [page, setPage] = useState(1);
-  const [dataSource, setDataSource] = useState(sortablaDataSourcePagesRef.current[0]);
-  const clearSelectedHandleRef = useRef<() => void | undefined>();
+  // const [selectorColumns, setSelectorColumns] = useState<any[]>(defaultSelectorColumns);
+  const [page, setPage] = useState(0);
+  const [dataSource, setDataSource] = useState(dataSourcePagesRef.current[0]);
 
   const handler1 = createCommonHandler((value?: number) => {
-    if (isUndefined(value)) value = 200;
+    if (isUndefined(value) || value === 0) value = 200;
     const newColumns = defaultColumns.slice();
     newColumns.find((item) => item.dataIndex === 'indexD')!.minWidth = value;
     setColumns(newColumns);
   });
 
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) {
-      return;
-    }
-    if (result.source.index === result.destination.index) {
-      return;
-    }
-    const newRes = arrayMove(dataSource, result.source.index, result.destination.index);
-    console.log(newRes);
-    setDataSource(newRes);
-  };
-
   return (
     <OverwriteStyle>
       <Controller>
-        <Button
-          onClick={() => {
-            clearSelectedHandleRef.current && clearSelectedHandleRef.current();
-            setSelectedRowKeys([]);
-          }}
-        >
-          清空选中行
-        </Button>
+        <ButtonGroup variant="text" color="primary" size="small">
+          <Button
+            onClick={() => {
+              setSelectedRowKeys([]);
+            }}
+          >
+            清空选中行
+          </Button>
+          <Button
+            onClick={() => {
+              const selected = dataSource.slice(0, 10).map((data: any) => data.id);
+              setSelectedRowKeys(selected);
+            }}
+          >
+            清空并选中选中当前页前10行
+          </Button>
+        </ButtonGroup>
         <Input
           placeholder="调整`Column D`列宽"
           onChange={handler1}
           style={{ width: 180 }}
+          type="small"
+          color="primary"
         />
       </Controller>
+      <Alert style={{ margin: '10px 0' }} color="info" severity="info">
+        固定右侧操作栏以及浮层操作栏的目标几乎一致，建议两种设计取其一。
+      </Alert>
       <div style={{ width: '100%', height: 500 }}>
-        <AdminVirtualTable<{
-          id: string;
-          indexA: string;
-          indexB: string;
-          indexC: string;
-          indexD: string;
-          indexE: string;
-        }>
+        <Table<ITableData>
           className="company-table"
           dataSource={dataSource}
           columns={columns}
@@ -255,8 +284,19 @@ export const Sortable = () => {
             onChange(changedSelectedRowKeys, changedSelectRows) {
               console.log(changedSelectedRowKeys, changedSelectRows);
               setSelectedRowKeys(changedSelectedRowKeys);
-            },
+            }
           }}
+          onRow={(record, index) => ({
+            onClick(e) {
+              console.log(e.type, 'onclick row', record, index);
+            },
+            onDoubleClick(e) {
+              console.log(e.type, 'onDoubleClick row', record, index);
+            },
+            onContextMenu(e) {
+              console.log(e.type, 'onContextMenu row', record, index);
+            }
+          })}
           pagination={{
             page,
             count: initialTotal,
@@ -264,30 +304,33 @@ export const Sortable = () => {
             rowsPerPageOptions: [200],
             onChangePage(e, page) {
               setPage(page);
-              setDataSource(sortablaDataSourcePagesRef.current[page]);
+              setDataSource(dataSourcePagesRef.current[page]);
+            },
+            nextIconButtonProps: {
+              size: 'small',
+              color: 'primary'
+            },
+            backIconButtonProps: {
+              size: 'small',
+              color: 'primary'
             }
           }}
           opts={[
-            <Button key="reassign">操作离职</Button>,
-            <AccessTimeIcon
-              key="calendar"
-              style={{ color: Blue500 }}
-              onClick={(e: any) => console.log(e.detail.row, e.detail.index)}
-            />,
-            ({ row, index }) => {
-              if (index === 5) return;
-              return <AccessTimeIcon key="country" style={{ color: Blue500 }} />;
-            },
-            <AccessTimeIcon style={{ color: Blue500 }} key="safe" />,
+            <Button key="a">操作A</Button>,
+            <Button key="b">操作B</Button>,
+            <Button key="c">操作C</Button>
           ]}
-          sortable
-          refreshRowHeightsAfterDrag
-          onDragEnd={handleDragEnd}
-          isSortableRow={(data) => data.draggable}
         />
       </div>
     </OverwriteStyle>
   );
 };
 
-export default Sortable;
+export default {
+  title: 'Table',
+  parameters: {
+    docs: {
+      page: mdx,
+    },
+  }
+} as Meta;

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { EllipsisTooltip, AdminVirtualTable } from '@/components';
+import { EllipsisTooltip, Table } from '@/components';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { nanoid } from 'nanoid';
@@ -160,7 +160,7 @@ export const Tree = observer(() => {
   const { selectedRowKeys } = observedValue;
   return (
     <div style={{ width: '100%', height: 500 }}>
-      <AdminVirtualTable<ITableData>
+      <Table<ITableData>
         className="company-table"
         dataSource={dataSource}
         columns={columns}

@@ -1,0 +1,53 @@
+import { Story, Source } from '@storybook/addon-docs/blocks';
+
+<Story id="table--base" />
+<Source id="table--base" />
+<Story id="table--sortable" />
+<Source id="table--sortable" />
+
+## API
+
+### table
+
+| 参数 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+| opts | 鼠标 hover 行展示于行内的 opt bar | (((params: {row: T;index: number;}) => ReactNode) \| ReactElement)[] | - |
+| dataSource | 数据源 | object[] | - |
+| headerProps | 表格头 props | object | fixedHeight: header-row 固定高度，默认48px |
+| rowHeight | 表格最小行高 | number | 默认44px |
+| rowClassName | 行类名 | string | - |
+| rowSelection | 表格行是否可选择  | [object](#rowselection) | - |
+| columns | 表格列的配置描述 | [Column](#column)[] | - |
+
+
+### RowSelection
+
+| 参数 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+| selectedRowKeys | 指定选中项的 key 数组，需要和 onChange 进行配合 | string[] | - |
+| onChange | 选中项发生变化时的回调 | function(selectedRowKeys, selectedRows) | - |
+
+
+### Column
+
+| 参数 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+| key | - | string | - |
+| title | 列头显示文字 | (() => string \| ReactNode) \| string | - |
+| width | 列头宽度 | number | - |
+| minWidth | 列头最小宽度，容器多余空间按比例分配 | number | - |
+| fixed | （IE 下无效）列是否固定，可选 true (等效于 left) left right | boolean \| string | - |
+| dataIndex | 简化版本，不支持路径 | string | - |
+| dynamicHeight | 虚拟列表场景的动态高度 | boolean \| [DynamicHeight](#dynamicheight) | undefined |
+| render | 生成复杂数据的渲染函数，参数分别为当前行的值，当前行数据，行索引 | function(text, record, index) {} | - |
+| align | 设置列的对齐方式 | 'flex-start' \| 'center' \| 'flex-end' | - |
+
+
+### DynamicHeight
+
+| 参数 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+| enableTextOptimize | 是否启用纯文本度量优化策略 | boolean | - |
+| maxHeight | 设置单元格最大高度 | number | - |
+| factors | 影响文本宽度度量的因素 | object | lineHeight 当前宿主环境默认值、fontSize 默认12px、fontWeight 默认400、fontFamily 当前宿主环境默认值 |
+| getTextContent | 获取实际渲染于单元格里的文本 | (text: any, entity: any, index: number) => string | - |

@@ -8,5 +8,5 @@ module.exports = {
       '@': path.resolve(__dirname, '../'),
     });
     return config;
-  },
+  }
 };

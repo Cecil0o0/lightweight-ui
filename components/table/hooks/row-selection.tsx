@@ -45,6 +45,7 @@ export function useRowSelection({
     headerCheckbox: (
       <Checkbox
         size="small"
+        color="primary"
         indeterminate={indeterminate}
         checked={isSelectedAll}
         onChange={() => {
@@ -67,6 +68,7 @@ export function useRowSelection({
         <Checkbox
           checked={checked}
           size="small"
+          color="primary"
           onChange={() => {
             if (typeof onChange !== 'function') return;
             let rowKeys;

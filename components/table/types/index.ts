@@ -46,7 +46,7 @@ export interface RowHandlers {
   onContextMenu?: MouseEventHandler<HTMLDivElement>;
 }
 
-export interface IAdminVirtualTable<T> {
+export interface ITableInner<T> {
   dataSource: T[];
   columns: Column<T>[];
   loading?: boolean;
@@ -97,7 +97,7 @@ export type LayoutVerticalType = 'fluid' | 'fill';
 
 export type RowSelectionOnchange = (selectedRowKeys: string[], selecteRows: any[]) => void;
 
-export interface ITable<T> extends IAdminVirtualTable<T> {
+export interface ITable<T> extends ITableInner<T> {
   containerWidth: number;
   containerHeight: number;
 }
