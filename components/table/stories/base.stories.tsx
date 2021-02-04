@@ -143,8 +143,7 @@ const defaultColumns: Column<Info>[] = [
   {
     title: () => 'Column B',
     dataIndex: 'indexB',
-    width: 200,
-    fixed: 'left'
+    width: 200
   },
   {
     title: () => 'Column D',

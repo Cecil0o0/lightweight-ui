@@ -280,6 +280,6 @@ export const Sortable = () => {
   );
 };
 
-export default {
-  title: 'Table'
-};
+// export default {
+//   title: 'Table'
+// };
