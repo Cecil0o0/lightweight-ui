@@ -1,3 +1,3 @@
-# Awesome Components
+# Lightweight-UI
 
-Some awesome components written in typescript.
+Make app more light, powerful and elegant.
